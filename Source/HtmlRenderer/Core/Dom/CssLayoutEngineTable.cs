@@ -680,7 +680,7 @@ namespace TheArtOfDev.HtmlRenderer.Core.Dom
                     // If one cell crosses page borders then don't need to check other cells in the row
                     if (_tableBox.PageBreakInside == CssConstants.Avoid)
                     {
-                        breakPage = cell.BreakPage();
+                        breakPage = cell.BreakPageIfOverflow();
                         if (breakPage)
                         {
                             cury = cell.Location.Y;

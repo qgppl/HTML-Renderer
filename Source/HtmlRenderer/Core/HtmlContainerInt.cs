@@ -393,6 +393,14 @@ namespace TheArtOfDev.HtmlRenderer.Core
             set { _actualSize = value; }
         }
 
+        /// <summary>
+        /// True if rendering to paged media
+        /// </summary>
+        public Boolean PagedMedia { get; set; }
+
+        /// <summary>
+        /// Page size when rendering to paged media
+        /// </summary>
         public RSize PageSize { get; set; }
 
         /// <summary>

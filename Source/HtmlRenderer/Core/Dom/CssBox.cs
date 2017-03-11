@@ -654,6 +654,7 @@ namespace TheArtOfDev.HtmlRenderer.Core.Dom
                         left = ContainingBlock.Location.X + ContainingBlock.ActualPaddingLeft + ActualMarginLeft + ContainingBlock.ActualBorderLeftWidth;
                         top = (prevSibling == null && ParentBox != null ? ParentBox.ClientTop : ParentBox == null ? Location.Y : 0) + MarginTopCollapse(prevSibling) + (prevSibling != null ? prevSibling.ActualBottom + prevSibling.ActualBorderBottomWidth : 0);
                         Location = new RPoint(left, top);
+                        HandlePageBreak();
                         ActualBottom = top;
                     }
                 }
@@ -703,6 +704,22 @@ namespace TheArtOfDev.HtmlRenderer.Core.Dom
             }
         }
 
+        private void HandlePageBreak()
+        {
+            if (!HtmlContainer.PagedMedia)
+            {
+                return;
+            }
+            var prevSibling = DomUtils.GetPreviousSibling(this);
+            bool pageBreakAlways =
+                (PageBreakBefore == CssConstants.Always) ||
+                (prevSibling?.PageBreakAfter == CssConstants.Always);
+            if (pageBreakAlways)
+            {
+                MoveToTopOfNextPage();
+            }
+        }
+    
         /// <summary>
         /// Assigns words its width and height
         /// </summary>
@@ -1118,11 +1135,16 @@ namespace TheArtOfDev.HtmlRenderer.Core.Dom
             return value;
         }
 
-        public bool BreakPage()
+        /// <summary>
+        /// If media is paged and this box overlaps page break and is not taller than page height,
+        /// sets current location to beginning of next page
+        /// </summary>
+        /// <returns>if page break did happen</returns>
+        public bool BreakPageIfOverflow()
         {
             var container = this.HtmlContainer;
 
-            if (this.Size.Height >= container.PageSize.Height)
+            if ((!container.PagedMedia) || (this.Size.Height >= container.PageSize.Height))
                 return false;
 
             var remTop = (this.Location.Y - container.MarginTop) % container.PageSize.Height;
@@ -1130,12 +1152,24 @@ namespace TheArtOfDev.HtmlRenderer.Core.Dom
 
             if (remTop > remBottom)
             {
-                var diff = container.PageSize.Height - remTop;
-                this.Location = new RPoint(this.Location.X, this.Location.Y + diff + 1);
+                MoveToTopOfNextPage();
                 return true;
             }
 
             return false;
+        }
+
+        /// <summary>
+        /// If media is paged sets current location to beginning of next page
+        /// </summary>
+        public void MoveToTopOfNextPage()
+        {
+            var container = this.HtmlContainer;
+            if (!container.PagedMedia)
+                return;
+            var remTop = (this.Location.Y - container.MarginTop) % container.PageSize.Height;
+            var offsetToEndOfPage = container.PageSize.Height - remTop;
+            this.Location = new RPoint(this.Location.X, this.Location.Y + offsetToEndOfPage + 1);
         }
 
         /// <summary>

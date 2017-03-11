@@ -297,6 +297,12 @@ namespace TheArtOfDev.HtmlRenderer.Core.Utils
                 case "page-break-inside":
                     cssBox.PageBreakInside = value;
                     break;
+                case "page-break-before":
+                    cssBox.PageBreakBefore = value;
+                    break;
+                case "page-break-after":
+                    cssBox.PageBreakAfter = value;
+                    break;
                 case "left":
                     cssBox.Left = value;
                     break;

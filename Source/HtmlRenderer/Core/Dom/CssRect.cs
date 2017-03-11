@@ -273,7 +273,7 @@ namespace TheArtOfDev.HtmlRenderer.Core.Dom
         {
             var container = this.OwnerBox.HtmlContainer;
 
-            if (this.Height >= container.PageSize.Height)
+            if ((!container.PagedMedia) || (this.Height >= container.PageSize.Height))
                 return false;
 
             var remTop = (this.Top - container.MarginTop) % container.PageSize.Height;

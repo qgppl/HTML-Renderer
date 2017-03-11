@@ -46,6 +46,7 @@ namespace TheArtOfDev.HtmlRenderer.PdfSharp
             _htmlContainerInt = new HtmlContainerInt(PdfSharpAdapter.Instance);
             _htmlContainerInt.AvoidAsyncImagesLoading = true;
             _htmlContainerInt.AvoidImagesLateLoading = true;
+            _htmlContainerInt.PagedMedia = true;
         }
 
         /// <summary>

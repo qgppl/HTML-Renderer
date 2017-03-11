@@ -115,6 +115,7 @@ namespace TheArtOfDev.HtmlRenderer.Core.Utils
         public const string Double = "double";
         public const string Groove = "groove";
         public const string Ridge = "ridge";
+        public const string Always = "always";
 
         /// <summary>
         /// Centimeters
