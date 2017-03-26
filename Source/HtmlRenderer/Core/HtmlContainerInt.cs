@@ -92,6 +92,11 @@ namespace TheArtOfDev.HtmlRenderer.Core
         private readonly CssParser _cssParser;
 
         /// <summary>
+        /// parser for CSS lengths
+        /// </summary>
+        private readonly CssLengthParser _cssLengthParser;
+
+        /// <summary>
         /// the root css box of the parsed html
         /// </summary>
         private CssBox _root;
@@ -211,6 +216,7 @@ namespace TheArtOfDev.HtmlRenderer.Core
 
             _adapter = adapter;
             _cssParser = new CssParser(adapter);
+            _cssLengthParser = new CssLengthParser(adapter);
         }
 
         /// <summary>
@@ -227,6 +233,14 @@ namespace TheArtOfDev.HtmlRenderer.Core
         internal CssParser CssParser
         {
             get { return _cssParser; }
+        }
+
+        /// <summary>
+        /// parser for CSS values
+        /// </summary>
+        internal CssLengthParser CssLengthParser
+        {
+            get { return _cssLengthParser; }
         }
 
         /// <summary>

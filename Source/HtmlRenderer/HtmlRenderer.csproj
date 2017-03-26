@@ -90,6 +90,7 @@
     <Compile Include="Core\Utils\ArgChecker.cs" />
     <Compile Include="Core\Utils\CommonUtils.cs" />
     <Compile Include="Core\Utils\CssConstants.cs" />
+    <Compile Include="Core\Parse\CssLengthParser.cs" />
     <Compile Include="Core\Utils\CssUtils.cs" />
     <Compile Include="Core\Utils\DomUtils.cs" />
     <Compile Include="Core\Utils\HtmlConstants.cs" />

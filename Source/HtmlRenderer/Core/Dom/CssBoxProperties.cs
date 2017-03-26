@@ -559,7 +559,7 @@ namespace TheArtOfDev.HtmlRenderer.Core.Dom
         public string LineHeight
         {
             get { return _lineHeight; }
-            set { _lineHeight = string.Format(NumberFormatInfo.InvariantInfo, "{0}px", CssValueParser.ParseLength(value, Size.Height, this, CssConstants.Em)); }
+            set { _lineHeight = string.Format(NumberFormatInfo.InvariantInfo, "{0}px", GetLengthParser().ParseLength(value, Size.Height, this, CssConstants.Em)); }
         }
 
         public string VerticalAlign
@@ -813,7 +813,7 @@ namespace TheArtOfDev.HtmlRenderer.Core.Dom
             {
                 if (double.IsNaN(_actualHeight))
                 {
-                    _actualHeight = CssValueParser.ParseLength(Height, Size.Height, this);
+                    _actualHeight = GetLengthParser().ParseLength(Height, Size.Height, this);
                 }
                 return _actualHeight;
             }
@@ -828,7 +828,7 @@ namespace TheArtOfDev.HtmlRenderer.Core.Dom
             {
                 if (double.IsNaN(_actualWidth))
                 {
-                    _actualWidth = CssValueParser.ParseLength(Width, Size.Width, this);
+                    _actualWidth = GetLengthParser().ParseLength(Width, Size.Width, this);
                 }
                 return _actualWidth;
             }
@@ -843,7 +843,7 @@ namespace TheArtOfDev.HtmlRenderer.Core.Dom
             {
                 if (double.IsNaN(_actualPaddingTop))
                 {
-                    _actualPaddingTop = CssValueParser.ParseLength(PaddingTop, Size.Width, this);
+                    _actualPaddingTop = GetLengthParser().ParseLength(PaddingTop, Size.Width, this);
                 }
                 return _actualPaddingTop;
             }
@@ -858,7 +858,7 @@ namespace TheArtOfDev.HtmlRenderer.Core.Dom
             {
                 if (double.IsNaN(_actualPaddingLeft))
                 {
-                    _actualPaddingLeft = CssValueParser.ParseLength(PaddingLeft, Size.Width, this);
+                    _actualPaddingLeft = GetLengthParser().ParseLength(PaddingLeft, Size.Width, this);
                 }
                 return _actualPaddingLeft;
             }
@@ -873,7 +873,7 @@ namespace TheArtOfDev.HtmlRenderer.Core.Dom
             {
                 if (double.IsNaN(_actualPaddingBottom))
                 {
-                    _actualPaddingBottom = CssValueParser.ParseLength(PaddingBottom, Size.Width, this);
+                    _actualPaddingBottom = GetLengthParser().ParseLength(PaddingBottom, Size.Width, this);
                 }
                 return _actualPaddingBottom;
             }
@@ -888,7 +888,7 @@ namespace TheArtOfDev.HtmlRenderer.Core.Dom
             {
                 if (double.IsNaN(_actualPaddingRight))
                 {
-                    _actualPaddingRight = CssValueParser.ParseLength(PaddingRight, Size.Width, this);
+                    _actualPaddingRight = GetLengthParser().ParseLength(PaddingRight, Size.Width, this);
                 }
                 return _actualPaddingRight;
             }
@@ -905,7 +905,7 @@ namespace TheArtOfDev.HtmlRenderer.Core.Dom
                 {
                     if (MarginTop == CssConstants.Auto)
                         MarginTop = "0";
-                    var actualMarginTop = CssValueParser.ParseLength(MarginTop, Size.Width, this);
+                    var actualMarginTop = GetLengthParser().ParseLength(MarginTop, Size.Width, this);
                     if (MarginLeft.EndsWith("%"))
                         return actualMarginTop;
                     _actualMarginTop = actualMarginTop;
@@ -934,7 +934,7 @@ namespace TheArtOfDev.HtmlRenderer.Core.Dom
                 {
                     if (MarginLeft == CssConstants.Auto)
                         MarginLeft = "0";
-                    var actualMarginLeft = CssValueParser.ParseLength(MarginLeft, Size.Width, this);
+                    var actualMarginLeft = GetLengthParser().ParseLength(MarginLeft, Size.Width, this);
                     if (MarginLeft.EndsWith("%"))
                         return actualMarginLeft;
                     _actualMarginLeft = actualMarginLeft;
@@ -954,7 +954,7 @@ namespace TheArtOfDev.HtmlRenderer.Core.Dom
                 {
                     if (MarginBottom == CssConstants.Auto)
                         MarginBottom = "0";
-                    var actualMarginBottom = CssValueParser.ParseLength(MarginBottom, Size.Width, this);
+                    var actualMarginBottom = GetLengthParser().ParseLength(MarginBottom, Size.Width, this);
                     if (MarginLeft.EndsWith("%"))
                         return actualMarginBottom;
                     _actualMarginBottom = actualMarginBottom;
@@ -974,7 +974,7 @@ namespace TheArtOfDev.HtmlRenderer.Core.Dom
                 {
                     if (MarginRight == CssConstants.Auto)
                         MarginRight = "0";
-                    var actualMarginRight = CssValueParser.ParseLength(MarginRight, Size.Width, this);
+                    var actualMarginRight = GetLengthParser().ParseLength(MarginRight, Size.Width, this);
                     if (MarginLeft.EndsWith("%"))
                         return actualMarginRight;
                     _actualMarginRight = actualMarginRight;
@@ -992,7 +992,7 @@ namespace TheArtOfDev.HtmlRenderer.Core.Dom
             {
                 if (double.IsNaN(_actualBorderTopWidth))
                 {
-                    _actualBorderTopWidth = CssValueParser.GetActualBorderWidth(BorderTopWidth, this);
+                    _actualBorderTopWidth = GetLengthParser().GetActualBorderWidth(BorderTopWidth, this);
                     if (string.IsNullOrEmpty(BorderTopStyle) || BorderTopStyle == CssConstants.None)
                     {
                         _actualBorderTopWidth = 0f;
@@ -1011,7 +1011,7 @@ namespace TheArtOfDev.HtmlRenderer.Core.Dom
             {
                 if (double.IsNaN(_actualBorderLeftWidth))
                 {
-                    _actualBorderLeftWidth = CssValueParser.GetActualBorderWidth(BorderLeftWidth, this);
+                    _actualBorderLeftWidth = GetLengthParser().GetActualBorderWidth(BorderLeftWidth, this);
                     if (string.IsNullOrEmpty(BorderLeftStyle) || BorderLeftStyle == CssConstants.None)
                     {
                         _actualBorderLeftWidth = 0f;
@@ -1030,7 +1030,7 @@ namespace TheArtOfDev.HtmlRenderer.Core.Dom
             {
                 if (double.IsNaN(_actualBorderBottomWidth))
                 {
-                    _actualBorderBottomWidth = CssValueParser.GetActualBorderWidth(BorderBottomWidth, this);
+                    _actualBorderBottomWidth = GetLengthParser().GetActualBorderWidth(BorderBottomWidth, this);
                     if (string.IsNullOrEmpty(BorderBottomStyle) || BorderBottomStyle == CssConstants.None)
                     {
                         _actualBorderBottomWidth = 0f;
@@ -1049,7 +1049,7 @@ namespace TheArtOfDev.HtmlRenderer.Core.Dom
             {
                 if (double.IsNaN(_actualBorderRightWidth))
                 {
-                    _actualBorderRightWidth = CssValueParser.GetActualBorderWidth(BorderRightWidth, this);
+                    _actualBorderRightWidth = GetLengthParser().GetActualBorderWidth(BorderRightWidth, this);
                     if (string.IsNullOrEmpty(BorderRightStyle) || BorderRightStyle == CssConstants.None)
                     {
                         _actualBorderRightWidth = 0f;
@@ -1132,7 +1132,7 @@ namespace TheArtOfDev.HtmlRenderer.Core.Dom
             {
                 if (double.IsNaN(_actualCornerNw))
                 {
-                    _actualCornerNw = CssValueParser.ParseLength(CornerNwRadius, 0, this);
+                    _actualCornerNw = GetLengthParser().ParseLength(CornerNwRadius, 0, this);
                 }
                 return _actualCornerNw;
             }
@@ -1147,7 +1147,7 @@ namespace TheArtOfDev.HtmlRenderer.Core.Dom
             {
                 if (double.IsNaN(_actualCornerNe))
                 {
-                    _actualCornerNe = CssValueParser.ParseLength(CornerNeRadius, 0, this);
+                    _actualCornerNe = GetLengthParser().ParseLength(CornerNeRadius, 0, this);
                 }
                 return _actualCornerNe;
             }
@@ -1162,7 +1162,7 @@ namespace TheArtOfDev.HtmlRenderer.Core.Dom
             {
                 if (double.IsNaN(_actualCornerSe))
                 {
-                    _actualCornerSe = CssValueParser.ParseLength(CornerSeRadius, 0, this);
+                    _actualCornerSe = GetLengthParser().ParseLength(CornerSeRadius, 0, this);
                 }
                 return _actualCornerSe;
             }
@@ -1177,7 +1177,7 @@ namespace TheArtOfDev.HtmlRenderer.Core.Dom
             {
                 if (double.IsNaN(_actualCornerSw))
                 {
-                    _actualCornerSw = CssValueParser.ParseLength(CornerSwRadius, 0, this);
+                    _actualCornerSw = GetLengthParser().ParseLength(CornerSwRadius, 0, this);
                 }
                 return _actualCornerSw;
             }
@@ -1337,7 +1337,7 @@ namespace TheArtOfDev.HtmlRenderer.Core.Dom
                             fsize = parentSize + 2;
                             break;
                         default:
-                            fsize = CssValueParser.ParseLength(FontSize, parentSize, parentSize, null, true, true);
+                            fsize = GetLengthParser().ParseLength(FontSize, parentSize, parentSize, null, true);
                             break;
                     }
 
@@ -1363,7 +1363,7 @@ namespace TheArtOfDev.HtmlRenderer.Core.Dom
             {
                 if (double.IsNaN(_actualLineHeight))
                 {
-                    _actualLineHeight = .9f * CssValueParser.ParseLength(LineHeight, Size.Height, this);
+                    _actualLineHeight = .9f * GetLengthParser().ParseLength(LineHeight, Size.Height, this);
                 }
                 return _actualLineHeight;
             }
@@ -1378,7 +1378,7 @@ namespace TheArtOfDev.HtmlRenderer.Core.Dom
             {
                 if (double.IsNaN(_actualTextIndent))
                 {
-                    _actualTextIndent = CssValueParser.ParseLength(TextIndent, Size.Width, this);
+                    _actualTextIndent = GetLengthParser().ParseLength(TextIndent, Size.Width, this);
                 }
 
                 return _actualTextIndent;
@@ -1402,7 +1402,7 @@ namespace TheArtOfDev.HtmlRenderer.Core.Dom
                     }
                     else if (matches.Count > 0)
                     {
-                        _actualBorderSpacingHorizontal = CssValueParser.ParseLength(matches[0].Value, 1, this);
+                        _actualBorderSpacingHorizontal = GetLengthParser().ParseLength(matches[0].Value, 1, this);
                     }
                 }
 
@@ -1428,11 +1428,11 @@ namespace TheArtOfDev.HtmlRenderer.Core.Dom
                     }
                     else if (matches.Count == 1)
                     {
-                        _actualBorderSpacingVertical = CssValueParser.ParseLength(matches[0].Value, 1, this);
+                        _actualBorderSpacingVertical = GetLengthParser().ParseLength(matches[0].Value, 1, this);
                     }
                     else
                     {
-                        _actualBorderSpacingVertical = CssValueParser.ParseLength(matches[1].Value, 1, this);
+                        _actualBorderSpacingVertical = GetLengthParser().ParseLength(matches[1].Value, 1, this);
                     }
                 }
                 return _actualBorderSpacingVertical;
@@ -1444,6 +1444,12 @@ namespace TheArtOfDev.HtmlRenderer.Core.Dom
         /// </summary>
         /// <returns></returns>
         protected abstract CssBoxProperties GetParent();
+
+        /// <summary>
+        /// Get the value parser for current rendering target
+        /// </summary>
+        /// <returns></returns>
+        public abstract CssLengthParser GetLengthParser();
 
         /// <summary>
         /// Gets the height of the font in the specified units
@@ -1496,7 +1502,7 @@ namespace TheArtOfDev.HtmlRenderer.Core.Dom
                 if (WordSpacing != CssConstants.Normal)
                 {
                     string len = RegexParserUtils.Search(RegexParserUtils.CssLength, WordSpacing);
-                    _actualWordSpacing += CssValueParser.ParseLength(len, 1, this);
+                    _actualWordSpacing += GetLengthParser().ParseLength(len, 1, this);
                 }
             }
         }

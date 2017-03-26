@@ -52,7 +52,7 @@ namespace TheArtOfDev.HtmlRenderer.Core.Utils
             double w = box.ActualFont.GetWhitespaceWidth(g);
             if (!(String.IsNullOrEmpty(box.WordSpacing) || box.WordSpacing == CssConstants.Normal))
             {
-                w += CssValueParser.ParseLength(box.WordSpacing, 0, box, true);
+                w += box.GetLengthParser().ParseLengthToPoints(box.WordSpacing, 0, box);
             }
             return w;
         }

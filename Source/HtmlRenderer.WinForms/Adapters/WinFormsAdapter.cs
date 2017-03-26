@@ -17,6 +17,7 @@ using System.Windows.Forms;
 using TheArtOfDev.HtmlRenderer.Adapters.Entities;
 using TheArtOfDev.HtmlRenderer.Adapters;
 using TheArtOfDev.HtmlRenderer.WinForms.Utilities;
+using System;
 
 namespace TheArtOfDev.HtmlRenderer.WinForms.Adapters
 {
@@ -149,6 +150,19 @@ namespace TheArtOfDev.HtmlRenderer.WinForms.Adapters
                     ((ImageAdapter)image).Image.Save(saveDialog.FileName);
                 }
             }
+        }
+
+        private const double PointsPerInch = 72;
+        private const double DPI = 96;
+
+        public override double PointToDeviceUnit(double pt)
+        {
+            return pt / PointsPerInch * DPI;
+        }
+
+        public override double PixelToDeviceUnit(double px)
+        {
+            return px;
         }
     }
 }

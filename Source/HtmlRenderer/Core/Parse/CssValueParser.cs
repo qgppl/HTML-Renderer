@@ -22,14 +22,14 @@ namespace TheArtOfDev.HtmlRenderer.Core.Parse
     /// <summary>
     /// Parse CSS properties values like numbers, Urls, etc.
     /// </summary>
-    internal sealed class CssValueParser
+    internal class CssValueParser
     {
         #region Fields and Consts
 
         /// <summary>
         /// 
         /// </summary>
-        private readonly RAdapter _adapter;
+        protected readonly RAdapter _adapter;
 
         #endregion
 
@@ -147,106 +147,9 @@ namespace TheArtOfDev.HtmlRenderer.Core.Parse
         }
 
         /// <summary>
-        /// Parses a length. Lengths are followed by an unit identifier (e.g. 10px, 3.1em)
-        /// </summary>
-        /// <param name="length">Specified length</param>
-        /// <param name="hundredPercent">Equivalent to 100 percent when length is percentage</param>
-        /// <param name="fontAdjust">if the length is in pixels and the length is font related it needs to use 72/96 factor</param>
-        /// <param name="box"></param>
-        /// <returns>the parsed length value with adjustments</returns>
-        public static double ParseLength(string length, double hundredPercent, CssBoxProperties box, bool fontAdjust = false)
-        {
-            return ParseLength(length, hundredPercent, box.GetEmHeight(), null, fontAdjust, false);
-        }
-
-        /// <summary>
-        /// Parses a length. Lengths are followed by an unit identifier (e.g. 10px, 3.1em)
-        /// </summary>
-        /// <param name="length">Specified length</param>
-        /// <param name="hundredPercent">Equivalent to 100 percent when length is percentage</param>
-        /// <param name="box"></param>
-        /// <param name="defaultUnit"></param>
-        /// <returns>the parsed length value with adjustments</returns>
-        public static double ParseLength(string length, double hundredPercent, CssBoxProperties box, string defaultUnit)
-        {
-            return ParseLength(length, hundredPercent, box.GetEmHeight(), defaultUnit, false, false);
-        }
-
-        /// <summary>
-        /// Parses a length. Lengths are followed by an unit identifier (e.g. 10px, 3.1em)
-        /// </summary>
-        /// <param name="length">Specified length</param>
-        /// <param name="hundredPercent">Equivalent to 100 percent when length is percentage</param>
-        /// <param name="emFactor"></param>
-        /// <param name="defaultUnit"></param>
-        /// <param name="fontAdjust">if the length is in pixels and the length is font related it needs to use 72/96 factor</param>
-        /// <param name="returnPoints">Allows the return double to be in points. If false, result will be pixels</param>
-        /// <returns>the parsed length value with adjustments</returns>
-        public static double ParseLength(string length, double hundredPercent, double emFactor, string defaultUnit, bool fontAdjust, bool returnPoints)
-        {
-            //Return zero if no length specified, zero specified
-            if (string.IsNullOrEmpty(length) || length == "0")
-                return 0f;
-
-            //If percentage, use ParseNumber
-            if (length.EndsWith("%"))
-                return ParseNumber(length, hundredPercent);
-
-            //Get units of the length
-            bool hasUnit;
-            string unit = GetUnit(length, defaultUnit, out hasUnit);
-
-            //Factor will depend on the unit
-            double factor;
-
-            //Number of the length
-            string number = hasUnit ? length.Substring(0, length.Length - 2) : length;
-
-            //TODO: Units behave different in paper and in screen!
-            switch (unit)
-            {
-                case CssConstants.Em:
-                    factor = emFactor;
-                    break;
-                case CssConstants.Ex:
-                    factor = emFactor / 2;
-                    break;
-                case CssConstants.Px:
-                    factor = fontAdjust ? 72f / 96f : 1f; //TODO:a check support for hi dpi
-                    break;
-                case CssConstants.Mm:
-                    factor = 3.779527559f; //3 pixels per millimeter
-                    break;
-                case CssConstants.Cm:
-                    factor = 37.795275591f; //37 pixels per centimeter
-                    break;
-                case CssConstants.In:
-                    factor = 96f; //96 pixels per inch
-                    break;
-                case CssConstants.Pt:
-                    factor = 96f / 72f; // 1 point = 1/72 of inch
-
-                    if (returnPoints)
-                    {
-                        return ParseNumber(number, hundredPercent);
-                    }
-
-                    break;
-                case CssConstants.Pc:
-                    factor = 16f; // 1 pica = 12 points
-                    break;
-                default:
-                    factor = 0f;
-                    break;
-            }
-
-            return factor * ParseNumber(number, hundredPercent);
-        }
-
-        /// <summary>
         /// Get the unit to use for the length, use default if no unit found in length string.
         /// </summary>
-        private static string GetUnit(string length, string defaultUnit, out bool hasUnit)
+        protected static string GetUnit(string length, string defaultUnit, out bool hasUnit)
         {
             var unit = length.Length >= 3 ? length.Substring(length.Length - 2, 2) : string.Empty;
             switch (unit)
@@ -330,31 +233,7 @@ namespace TheArtOfDev.HtmlRenderer.Core.Parse
             return false;
         }
 
-        /// <summary>
-        /// Parses a border value in CSS style; e.g. 1px, 1, thin, thick, medium
-        /// </summary>
-        /// <param name="borderValue"></param>
-        /// <param name="b"></param>
-        /// <returns></returns>
-        public static double GetActualBorderWidth(string borderValue, CssBoxProperties b)
-        {
-            if (string.IsNullOrEmpty(borderValue))
-            {
-                return GetActualBorderWidth(CssConstants.Medium, b);
-            }
 
-            switch (borderValue)
-            {
-                case CssConstants.Thin:
-                    return 1f;
-                case CssConstants.Medium:
-                    return 2f;
-                case CssConstants.Thick:
-                    return 4f;
-                default:
-                    return Math.Abs(ParseLength(borderValue, 1, b));
-            }
-        }
 
 
         #region Private methods

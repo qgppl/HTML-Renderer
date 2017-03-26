@@ -18,6 +18,7 @@ using System.IO;
 using TheArtOfDev.HtmlRenderer.Adapters;
 using TheArtOfDev.HtmlRenderer.Adapters.Entities;
 using TheArtOfDev.HtmlRenderer.PdfSharp.Utilities;
+using System;
 
 namespace TheArtOfDev.HtmlRenderer.PdfSharp.Adapters
 {
@@ -129,6 +130,17 @@ namespace TheArtOfDev.HtmlRenderer.PdfSharp.Adapters
             var fontStyle = (XFontStyle)((int)style);
             var xFont = new XFont(((FontFamilyAdapter)family).FontFamily.Name, size, fontStyle, new XPdfFontOptions(PdfFontEncoding.Unicode));
             return new FontAdapter(xFont);
+        }
+
+        public override double PointToDeviceUnit(double pt)
+        {
+            return pt;
+        }
+
+        public override double PixelToDeviceUnit(double px)
+        {
+            // at default 72 DPI 1px = 1pt
+            return px;
         }
     }
 }

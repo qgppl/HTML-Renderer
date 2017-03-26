@@ -629,7 +629,7 @@ namespace TheArtOfDev.HtmlRenderer.Core.Dom
 
                     if (Width != CssConstants.Auto && !string.IsNullOrEmpty(Width))
                     {
-                        width = CssValueParser.ParseLength(Width, width, this);
+                        width = GetLengthParser().ParseLength(Width, width, this);
                     }
 
                     Size = new RSize(width, Size.Height);
@@ -756,6 +756,11 @@ namespace TheArtOfDev.HtmlRenderer.Core.Dom
         protected override sealed CssBoxProperties GetParent()
         {
             return _parentBox;
+        }
+
+        public override sealed CssLengthParser GetLengthParser()
+        {
+            return HtmlContainer.CssLengthParser;
         }
 
         /// <summary>
@@ -1561,8 +1566,8 @@ namespace TheArtOfDev.HtmlRenderer.Core.Dom
 
         protected override RPoint GetActualLocation(string X, string Y)
         {
-            var left = CssValueParser.ParseLength(X, this.HtmlContainer.PageSize.Width, this, null);
-            var top = CssValueParser.ParseLength(Y, this.HtmlContainer.PageSize.Height, this, null);
+            var left = GetLengthParser().ParseLength(X, this.HtmlContainer.PageSize.Width, this, null);
+            var top = GetLengthParser().ParseLength(Y, this.HtmlContainer.PageSize.Height, this, null);
             return new RPoint(left, top);
         }
 

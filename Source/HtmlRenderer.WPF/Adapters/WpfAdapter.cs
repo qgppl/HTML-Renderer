@@ -224,6 +224,19 @@ namespace TheArtOfDev.HtmlRenderer.WPF.Adapters
             return FontWeights.Normal;
         }
 
+        private const double PointsPerInch = 72;
+        private const double DPI = 96;
+
+        public override double PointToDeviceUnit(double pt)
+        {
+            return DPI * pt / PointsPerInch;
+        }
+
+        public override double PixelToDeviceUnit(double px)
+        {
+            return px;
+        }
+
         #endregion
     }
 }

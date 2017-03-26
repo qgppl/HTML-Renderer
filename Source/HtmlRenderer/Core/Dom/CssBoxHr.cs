@@ -62,7 +62,7 @@ namespace TheArtOfDev.HtmlRenderer.Core.Dom
             //Check width if not auto
             if (Width != CssConstants.Auto && !string.IsNullOrEmpty(Width))
             {
-                width = CssValueParser.ParseLength(Width, width, this);
+                width = GetLengthParser().ParseLength(Width, width, this);
             }
 
             if (width < minwidth || width >= 9999)

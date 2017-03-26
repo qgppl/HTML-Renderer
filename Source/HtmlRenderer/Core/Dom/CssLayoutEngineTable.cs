@@ -340,7 +340,7 @@ namespace TheArtOfDev.HtmlRenderer.Core.Dom
                         {
                             if (i < row.Boxes.Count && row.Boxes[i].Display == CssConstants.TableCell)
                             {
-                                double len = CssValueParser.ParseLength(row.Boxes[i].Width, availCellSpace, row.Boxes[i]);
+                                double len = row.GetLengthParser().ParseLength(row.Boxes[i].Width, availCellSpace, row.Boxes[i]);
                                 if (len > 0) //If some width specified
                                 {
                                     int colspan = GetColSpan(row.Boxes[i]);
@@ -867,7 +867,7 @@ namespace TheArtOfDev.HtmlRenderer.Core.Dom
             if (tblen.Number > 0)
             {
                 _widthSpecified = true;
-                return CssValueParser.ParseLength(_tableBox.Width, _tableBox.ParentBox.AvailableWidth, _tableBox);
+                return _tableBox.GetLengthParser().ParseLength(_tableBox.Width, _tableBox.ParentBox.AvailableWidth, _tableBox);
             }
             else
             {
@@ -890,7 +890,7 @@ namespace TheArtOfDev.HtmlRenderer.Core.Dom
             if (tblen.Number > 0)
             {
                 _widthSpecified = true;
-                return CssValueParser.ParseLength(_tableBox.MaxWidth, _tableBox.ParentBox.AvailableWidth, _tableBox);
+                return _tableBox.GetLengthParser().ParseLength(_tableBox.MaxWidth, _tableBox.ParentBox.AvailableWidth, _tableBox);
             }
             else
             {

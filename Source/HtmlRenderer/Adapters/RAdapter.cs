@@ -394,6 +394,20 @@ namespace TheArtOfDev.HtmlRenderer.Adapters
         protected abstract RFont CreateFontInt(RFontFamily family, double size, RFontStyle style);
 
         /// <summary>
+        /// Convert a length expressed in points to device unit
+        /// </summary>
+        /// <param name="pt"></param>
+        /// <returns></returns>
+        public abstract double PointToDeviceUnit(double pt);
+
+        /// <summary>
+        /// Convert a length expressed in pixels to device unit
+        /// </summary>
+        /// <param name="pt"></param>
+        /// <returns></returns>
+        public abstract double PixelToDeviceUnit(double px);
+
+        /// <summary>
         /// Get data object for the given html and plain text data.<br />
         /// The data object can be used for clipboard or drag-drop operation.
         /// </summary>
