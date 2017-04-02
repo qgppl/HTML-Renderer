@@ -43,6 +43,8 @@
     <Compile Include="..\SharedAssemblyInfo.cs">
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="Adapters\RBorderRectangleCalculator.cs" />
+    <Compile Include="Adapters\RBorderRectangleCalculatorVector.cs" />
     <Compile Include="Core\CssDefaults.cs" />
     <Compile Include="Core\Dom\CssBox.cs" />
     <Compile Include="Core\Dom\CssBoxFrame.cs" />
@@ -117,6 +119,7 @@
     <Compile Include="Adapters\RImage.cs" />
     <Compile Include="Adapters\RPen.cs" />
     <Compile Include="Core\Utils\SubString.cs" />
+    <Compile Include="Adapters\RBorderRectangleCalculatorRaster.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

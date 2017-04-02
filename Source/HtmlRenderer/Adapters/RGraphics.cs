@@ -168,6 +168,11 @@ namespace TheArtOfDev.HtmlRenderer.Adapters
         public abstract RGraphicsPath GetGraphicsPath();
 
         /// <summary>
+        /// Get border rectangle calculating object
+        /// </summary>
+        public abstract RBorderRectangleCalculator GetBorderRectangleCalculator();
+
+        /// <summary>
         /// Measure the width and height of string <paramref name="str"/> when drawn on device context HDC
         /// using the given font <paramref name="font"/>.
         /// </summary>

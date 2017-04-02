@@ -52,6 +52,8 @@ namespace TheArtOfDev.HtmlRenderer.WinForms.Adapters
         /// </summary>
         private static readonly StringFormat _stringFormat2;
 
+        private static readonly RBorderRectangleCalculator _borderCalculator;
+
         /// <summary>
         /// The wrapped WinForms graphics object
         /// </summary>
@@ -91,6 +93,7 @@ namespace TheArtOfDev.HtmlRenderer.WinForms.Adapters
             _stringFormat.FormatFlags = StringFormatFlags.NoClip | StringFormatFlags.MeasureTrailingSpaces;
 
             _stringFormat2 = new StringFormat(StringFormat.GenericTypographic);
+            _borderCalculator = new RBorderRectangleCalculatorRaster();
         }
 
         /// <summary>
@@ -337,6 +340,11 @@ namespace TheArtOfDev.HtmlRenderer.WinForms.Adapters
                 ReleaseHdc();
                 _g.FillPolygon(((BrushAdapter)brush).Brush, Utils.Convert(points));
             }
+        }
+
+        public override RBorderRectangleCalculator GetBorderRectangleCalculator()
+        {
+            return _borderCalculator;
         }
 
         #endregion

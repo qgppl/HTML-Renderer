@@ -21,7 +21,7 @@ namespace TheArtOfDev.HtmlRenderer.Core.Handlers
     /// <summary>
     /// Contains all the complex paint code to paint different style borders.
     /// </summary>
-    internal static class BordersDrawHandler
+    internal class BordersDrawHandler
     {
         #region Fields and Consts
 
@@ -45,19 +45,19 @@ namespace TheArtOfDev.HtmlRenderer.Core.Handlers
         {
             if (rect.Width > 0 && rect.Height > 0)
             {
-                if (!(string.IsNullOrEmpty(box.BorderTopStyle) || box.BorderTopStyle == CssConstants.None || box.BorderTopStyle == CssConstants.Hidden) && box.ActualBorderTopWidth > 0)
+                if (box.ActualBorderTopExists)
                 {
                     DrawBorder(Border.Top, box, g, rect, isFirst, isLast);
                 }
-                if (isFirst && !(string.IsNullOrEmpty(box.BorderLeftStyle) || box.BorderLeftStyle == CssConstants.None || box.BorderLeftStyle == CssConstants.Hidden) && box.ActualBorderLeftWidth > 0)
+                if (isFirst && box.ActualBorderLeftExists)
                 {
                     DrawBorder(Border.Left, box, g, rect, true, isLast);
                 }
-                if (!(string.IsNullOrEmpty(box.BorderBottomStyle) || box.BorderBottomStyle == CssConstants.None || box.BorderBottomStyle == CssConstants.Hidden) && box.ActualBorderBottomWidth > 0)
+                if (box.ActualBorderBottomExists)
                 {
                     DrawBorder(Border.Bottom, box, g, rect, isFirst, isLast);
                 }
-                if (isLast && !(string.IsNullOrEmpty(box.BorderRightStyle) || box.BorderRightStyle == CssConstants.None || box.BorderRightStyle == CssConstants.Hidden) && box.ActualBorderRightWidth > 0)
+                if (isLast && box.ActualBorderRightExists)
                 {
                     DrawBorder(Border.Right, box, g, rect, isFirst, true);
                 }
@@ -110,35 +110,35 @@ namespace TheArtOfDev.HtmlRenderer.Core.Handlers
 
                 g.ReturnPreviousSmoothingMode(prevMode);
             }
+            else if (style == CssConstants.Inset || style == CssConstants.Outset)
+            {
+                // inset/outset border needs special rectangle
+                SetInOutsetRectanglePoints(border, box, rect, isLineStart, isLineEnd);
+                g.DrawPolygon(g.GetSolidBrush(color), _borderPts);
+            }
             else
             {
-                // non rounded border
-                if (style == CssConstants.Inset || style == CssConstants.Outset)
+                // solid/dotted/dashed border draw as simple line
+                var pen = GetPen(g, style, color, GetWidth(border, box));
+                RRect r;
+                switch (border)
                 {
-                    // inset/outset border needs special rectangle
-                    SetInOutsetRectanglePoints(border, box, rect, isLineStart, isLineEnd);
-                    g.DrawPolygon(g.GetSolidBrush(color), _borderPts);
+                    case Border.Top:
+                        r = g.GetBorderRectangleCalculator().GetTopBorderRect(rect, box.ActualBorderTopWidth, box.ActualBorderLeftWidth, box.ActualBorderRightWidth, box.ActualBorderBottomWidth);
+                        break;
+                    case Border.Left:
+                        r = g.GetBorderRectangleCalculator().GetLeftBorderRect(rect, box.ActualBorderTopWidth, box.ActualBorderLeftWidth, box.ActualBorderRightWidth, box.ActualBorderBottomWidth);
+                        break;
+                    case Border.Bottom:
+                        r = g.GetBorderRectangleCalculator().GetBottomBorderRect(rect, box.ActualBorderTopWidth, box.ActualBorderLeftWidth, box.ActualBorderRightWidth, box.ActualBorderBottomWidth);
+                        break;
+                    case Border.Right:
+                        r = g.GetBorderRectangleCalculator().GetRightBorderRect(rect, box.ActualBorderTopWidth, box.ActualBorderLeftWidth, box.ActualBorderRightWidth, box.ActualBorderBottomWidth);
+                        break;
+                    default:
+                        return;
                 }
-                else
-                {
-                    // solid/dotted/dashed border draw as simple line
-                    var pen = GetPen(g, style, color, GetWidth(border, box));
-                    switch (border)
-                    {
-                        case Border.Top:
-                            g.DrawLine(pen, Math.Ceiling(rect.Left), rect.Top + box.ActualBorderTopWidth / 2, rect.Right - 1, rect.Top + box.ActualBorderTopWidth / 2);
-                            break;
-                        case Border.Left:
-                            g.DrawLine(pen, rect.Left + box.ActualBorderLeftWidth / 2, Math.Ceiling(rect.Top), rect.Left + box.ActualBorderLeftWidth / 2, Math.Floor(rect.Bottom));
-                            break;
-                        case Border.Bottom:
-                            g.DrawLine(pen, Math.Ceiling(rect.Left), rect.Bottom - box.ActualBorderBottomWidth / 2, rect.Right - 1, rect.Bottom - box.ActualBorderBottomWidth / 2);
-                            break;
-                        case Border.Right:
-                            g.DrawLine(pen, rect.Right - box.ActualBorderRightWidth / 2, Math.Ceiling(rect.Top), rect.Right - box.ActualBorderRightWidth / 2, Math.Floor(rect.Bottom));
-                            break;
-                    }
-                }
+                g.DrawLine(pen, r.Left, r.Top, r.Right, r.Bottom);
             }
         }
 

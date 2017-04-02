@@ -1002,6 +1002,38 @@ namespace TheArtOfDev.HtmlRenderer.Core.Dom
             }
         }
 
+        public bool ActualBorderTopExists
+        {
+            get
+            {
+                return !(string.IsNullOrEmpty(BorderTopStyle) || BorderTopStyle == CssConstants.None || BorderTopStyle == CssConstants.Hidden) && (ActualBorderTopWidth > 0);
+            }
+        }
+
+        public bool ActualBorderLeftExists
+        {
+            get
+            {
+                return !(string.IsNullOrEmpty(BorderLeftStyle) || BorderLeftStyle == CssConstants.None || BorderLeftStyle == CssConstants.Hidden) && (ActualBorderLeftWidth > 0);
+            }
+        }
+
+        public bool ActualBorderRightExists
+        {
+            get
+            {
+                return !(string.IsNullOrEmpty(BorderRightStyle) || BorderRightStyle == CssConstants.None || BorderRightStyle == CssConstants.Hidden) && (ActualBorderRightWidth > 0);
+            }
+        }
+
+        public bool ActualBorderBottomExists
+        {
+            get
+            {
+                return !(string.IsNullOrEmpty(BorderBottomStyle) || BorderBottomStyle == CssConstants.None || BorderBottomStyle == CssConstants.Hidden) && (ActualBorderBottomWidth > 0);
+            }
+        }
+
         /// <summary>
         /// Gets the actual Left border width
         /// </summary>

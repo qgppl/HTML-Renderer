@@ -39,8 +39,14 @@ namespace TheArtOfDev.HtmlRenderer.WPF.Adapters
         /// </summary>
         private readonly bool _releaseGraphics;
 
+        private readonly static RBorderRectangleCalculator _borderCalculator;
+
         #endregion
 
+        static GraphicsAdapter()
+        {
+            _borderCalculator = new RBorderRectangleCalculatorRaster();
+        }
 
         /// <summary>
         /// Init.
@@ -314,6 +320,11 @@ namespace TheArtOfDev.HtmlRenderer.WPF.Adapters
 
                 _g.DrawGeometry(((BrushAdapter)brush).Brush, null, g);
             }
+        }
+
+        public override RBorderRectangleCalculator GetBorderRectangleCalculator()
+        {
+            return _borderCalculator;
         }
 
         #endregion

@@ -37,6 +37,11 @@ namespace TheArtOfDev.HtmlRenderer.PdfSharp.Adapters
         private readonly bool _releaseGraphics;
 
         /// <summary>
+        /// Calculates border coordinates
+        /// </summary>
+        private static readonly RBorderRectangleCalculator _borderCalculator;
+
+        /// <summary>
         /// Used to measure and draw strings
         /// </summary>
         private static readonly XStringFormat _stringFormat;
@@ -49,6 +54,7 @@ namespace TheArtOfDev.HtmlRenderer.PdfSharp.Adapters
             _stringFormat = new XStringFormat();
             _stringFormat.Alignment = XStringAlignment.Near;
             _stringFormat.LineAlignment = XLineAlignment.Near;
+            _borderCalculator = new RBorderRectangleCalculatorVector();
         }
 
         /// <summary>
@@ -198,6 +204,13 @@ namespace TheArtOfDev.HtmlRenderer.PdfSharp.Adapters
                 _g.DrawPolygon((XBrush)((BrushAdapter)brush).Brush, Utils.Convert(points), XFillMode.Winding);
             }
         }
+
+        public override RBorderRectangleCalculator GetBorderRectangleCalculator()
+        {
+            return _borderCalculator;
+        }
+
+
 
         #endregion
     }
