@@ -270,6 +270,11 @@ namespace TheArtOfDev.HtmlRenderer.Adapters
         public abstract void DrawPolygon(RBrush brush, RPoint[] points);
 
         /// <summary>
+        /// Draws a debug crosshair at point.
+        /// </summary>
+        public abstract void DrawCrossHair(double x, double y);
+
+        /// <summary>
         /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
         /// </summary>
         public abstract void Dispose();

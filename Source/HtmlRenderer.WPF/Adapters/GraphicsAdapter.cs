@@ -267,6 +267,17 @@ namespace TheArtOfDev.HtmlRenderer.WPF.Adapters
             _g.DrawLine(((PenAdapter)pen).CreatePen(), new Point(x1, y1), new Point(x2, y2));
         }
 
+        public override void DrawCrossHair(double x, double y)
+        {
+            RPen pen = GetPen(RColor.Black);
+            pen.Width = 1;
+            const double len = 10;
+            _g.DrawLine(((PenAdapter)pen).CreatePen(), new Point(x - len, y + 0.5), new Point(x + len, y + 0.5));
+            _g.DrawLine(((PenAdapter)pen).CreatePen(), new Point(x + 0.5, y - len), new Point(x + 0.5, y + len));
+            _g.DrawLine(((PenAdapter)pen).CreatePen(), new Point(x - len, y - len), new Point(x + len, y + len));
+            _g.DrawLine(((PenAdapter)pen).CreatePen(), new Point(x - len, y + len), new Point(x + len, y - len));
+        }
+
         public override void DrawRectangle(RPen pen, double x, double y, double width, double height)
         {
             var adj = pen.Width;

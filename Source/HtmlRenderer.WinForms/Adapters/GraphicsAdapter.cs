@@ -342,6 +342,19 @@ namespace TheArtOfDev.HtmlRenderer.WinForms.Adapters
             }
         }
 
+        public override void DrawCrossHair(double x, double y)
+        {
+            RPen pen = GetPen(RColor.Black);
+            pen.Width = 1;
+            ReleaseHdc();
+            const double len = 10;
+            _g.DrawLine(((PenAdapter)pen).Pen, (float)(x - len), (float)(y), (float)(x + len), (float)(y));
+            _g.DrawLine(((PenAdapter)pen).Pen, (float)(x), (float)(y - len), (float)(x), (float)(y + len));
+            _g.DrawLine(((PenAdapter)pen).Pen, (float)(x - len), (float)(y - len), (float)(x + len), (float)(y + len));
+            _g.DrawLine(((PenAdapter)pen).Pen, (float)(x - len), (float)(y + len), (float)(x + len), (float)(y - len));
+        }
+
+
         public override RBorderRectangleCalculator GetBorderRectangleCalculator()
         {
             return _borderCalculator;

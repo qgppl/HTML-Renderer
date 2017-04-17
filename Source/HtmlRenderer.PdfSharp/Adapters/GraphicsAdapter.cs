@@ -154,6 +154,18 @@ namespace TheArtOfDev.HtmlRenderer.PdfSharp.Adapters
             _g.DrawLine(((PenAdapter)pen).Pen, x1, y1, x2, y2);
         }
 
+        public override void DrawCrossHair(double x, double y)
+        {
+            RPen pen = GetPen(RColor.Black);
+            pen.Width = 0.01;
+            const double len = 10;
+            var xpen = ((PenAdapter)pen).Pen;
+            _g.DrawLine(xpen, x - len, y, x + len, y);
+            _g.DrawLine(xpen, x, y - len, x, y + len);
+            _g.DrawLine(xpen, x - len, y - len, x + len, y + len);
+            _g.DrawLine(xpen, x - len, y + len, x + len, y - len);
+        }
+
         public override void DrawRectangle(RPen pen, double x, double y, double width, double height)
         {
             _g.DrawRectangle(((PenAdapter)pen).Pen, x, y, width, height);
