@@ -1015,7 +1015,7 @@ namespace TheArtOfDev.HtmlRenderer.Core.Dom
         /// </summary>
         private double GetHorizontalSpacing()
         {
-            return _tableBox.BorderCollapse == CssConstants.Collapse ? -1f : _tableBox.ActualBorderSpacingHorizontal;
+            return _tableBox.BorderCollapse == CssConstants.Collapse ? 0f : _tableBox.ActualBorderSpacingHorizontal;
         }
 
         /// <summary>
@@ -1023,7 +1023,7 @@ namespace TheArtOfDev.HtmlRenderer.Core.Dom
         /// </summary>
         private static double GetHorizontalSpacing(CssBox box)
         {
-            return box.BorderCollapse == CssConstants.Collapse ? -1f : box.ActualBorderSpacingHorizontal;
+            return box.BorderCollapse == CssConstants.Collapse ? 0f : box.ActualBorderSpacingHorizontal;
         }
 
         /// <summary>
@@ -1031,7 +1031,7 @@ namespace TheArtOfDev.HtmlRenderer.Core.Dom
         /// </summary>
         private double GetVerticalSpacing()
         {
-            return _tableBox.BorderCollapse == CssConstants.Collapse ? -1f : _tableBox.ActualBorderSpacingVertical;
+            return _tableBox.BorderCollapse == CssConstants.Collapse ? 0f : _tableBox.ActualBorderSpacingVertical;
         }
 
         #endregion

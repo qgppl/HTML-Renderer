@@ -1267,6 +1267,8 @@ namespace TheArtOfDev.HtmlRenderer.Core.Dom
                 for (int i = 0; i < rects.Length; i++)
                 {
                     var actualRect = rects[i];
+                    //g.DrawCrossHair(actualRect.Left, actualRect.Top);
+                    //g.DrawCrossHair(actualRect.Right, actualRect.Bottom);
                     actualRect.Offset(offset);
 
                     if (IsRectVisible(actualRect, clip))
@@ -1374,7 +1376,7 @@ namespace TheArtOfDev.HtmlRenderer.Core.Dom
                     }
                     else
                     {
-                        g.DrawRectangle(brush, Math.Ceiling(rect.X), Math.Ceiling(rect.Y), rect.Width, rect.Height);
+                        g.DrawRectangle(brush, rect.X, rect.Y, rect.Width, rect.Height);
                     }
 
                     g.ReturnPreviousSmoothingMode(prevMode);
